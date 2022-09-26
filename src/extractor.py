@@ -5,13 +5,15 @@ import os
 import fitz
 
 
-def extract_images_from_pdf(pdf_file_path: str, dir_to_save: str = "images"):
+def extract_images_from_pdf(
+    pdf_file_path: str, dir_to_save: str = "images", pages: list = None
+):
     """
     Extract images from pdf and save it to images.
     """
     file = fitz.open(pdf_file_path)
 
-    for page_index in range(file.page_count):
+    for page_index in pages if pages is not None else range(file.page_count):
         image_list = file.get_page_images(page_index)
 
         if len(image_list) > 0:
